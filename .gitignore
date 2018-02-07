@@ -1,0 +1,13 @@
+# --- IntelliJ IDEA ---
+.idea
+*.iml
+
+# --- Packer ---
+bin/packer
+packer.log
+packer_variables.json
+
+# --- Terraform ---
+.terraform
+*.tfstate*
+*.out

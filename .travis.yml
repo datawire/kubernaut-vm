@@ -1,0 +1,23 @@
+---
+sudo: false
+dist: trusty
+language: generic
+
+env:
+  global:
+    - TOOLS_DIR=${HOME}/bin
+    - PATH="${TOOLS_DIR}:${PATH}"
+
+    - COMMIT_HASH=${TRAVIS_COMMIT::8}
+
+    - secure: "Ab3Flck2tdGVtq13/MjHm5X8UiCgUkao2RYMZUZx2yUcYJMhmZANOO5dT+2TunltRTnlX1+htZqbeVMyWcL9wdTbHXDN1B3bipivieQnhPyOlM5/2JSwUGf4JySjM/TM32W209xjnygqCXy7w2fBzLZ8f9/QnUleafbPRRgpDEdbYgAC+iOH7GylSSsrfuEQDXtRLPZFXJi7cZTd7u74epEuS6D/8DRk7N7NPAFa3Gh8bqEkwKWYtkjzth+5nRaoAFHeBE4EMrDa3+WFYKXkrWHDalwY6CzMpR8RJkWhMt5q/dZwpoN+kqM4jqny37pv2PkmHu/g4l5LEgdezvPDVs0ti0VS8IUjQO+KLS9Rq5NnTVInNp8xwhUemyr9TLJsmyGhpTSY6dYWXZxDMRc5xGpm7P1P2xnRIOdZtiMGJnECpTlUpgdkDaNWo3k4Itf1WxNYMeJbl5tRhkljygn/7I11w7zs+D8LFTVqHl9dACd5HhISQ0WyYflQ/0RKT5ZUpHphJdDdTsvuc2kdQwf7i1wQEQ4nk/yqQOf0zXrbk9CciemPijkWIBzLdSXWJC3bF3YYtQ2ZnI6S8F6hnF8G+W6pZJ2pUk9TL/sxcj+QXw43Rdl+idc56QwI7PKDDE8Yn4Kqf0EjjAGyjoE+fPEdxaKHTTDLULzKBUNhgrwnSkg="
+
+before_install: []
+
+install:
+  - set -e
+  - bin/install_packer.bash
+
+script:
+  - set -e
+  - bin/packer_build_release.bash
