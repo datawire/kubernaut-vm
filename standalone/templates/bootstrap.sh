@@ -8,9 +8,8 @@ export KUBEADM_TOKEN="${kubeadm_token}"
 export DNS_NAME="${dns_name}"
 export IP_ADDRESS="$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)"
 export CLUSTER_NAME="${cluster_name}"
-export KUBERNETES_VERSION="1.9.2"
+export KUBERNETES_VERSION="$(cat /etc/kubernaut/kubernetes_version)"
 
-# Set this only after setting the defaults
 set -o nounset
 
 aws ec2 create-tags \

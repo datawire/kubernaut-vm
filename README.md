@@ -33,3 +33,6 @@ All of the below commands should be run from the project root.
   --> kubernaut_k8s-v192: AMIs were created:
   us-east-1: ami-fb808981
   ```
+# Standalone VM
+
+A standalone cluster can be deployed with Terraform from the [`standalone/`](standalone/) directory. This is mostly useful for experimentation and testing built AMI's as the Kubernaut pooling system hands out clusters on demand.

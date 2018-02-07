@@ -4,7 +4,8 @@ set -o errexit
 set -o pipefail
 
 export DEBIAN_FRONTEND=noninteractive
-export KUBERNETES_VERSION="1.9.2-00"
+export KUBERNETES_VERSION="1.9.2"
+export KUBERNETES_VERSION_DEB="${KUBERNETES_VERSION}-00"
 
 set -o nounset
 
@@ -48,9 +49,13 @@ EOF
 
 apt-get update
 apt-get -y install \
-	kubelet=${KUBERNETES_VERSION} \
-	kubeadm=${KUBERNETES_VERSION} \
-	kubectl=${KUBERNETES_VERSION}
+	kubelet=${KUBERNETES_VERSION_DEB} \
+	kubeadm=${KUBERNETES_VERSION_DEB} \
+	kubectl=${KUBERNETES_VERSION_DEB}
 
 systemctl stop kubelet
 systemctl disable kubelet
+
+# --- Kubernaut Metadata ---
+mkdir /etc/kubernaut
+printf "${KUBERNETES_VERSION}" > /etc/kubernaut/kubernetes_version
