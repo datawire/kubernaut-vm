@@ -8,7 +8,7 @@ export KUBEADM_TOKEN="${kubeadm_token}"
 export DNS_NAME="${dns_name}"
 export IP_ADDRESS="$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)"
 export CLUSTER_NAME="${cluster_name}"
-export KUBERNETES_VERSION="$(cat /etc/kubernaut/kubernetes_version)"
+export KUBERNETES_VERSION="$(cat /etc/kubernaut/kubernetes_version | tr -d '\n')"
 
 set -o nounset
 
@@ -66,13 +66,17 @@ kubectl label nodes --all node-role.kubernetes.io/master-
 kubectl create clusterrolebinding admin-cluster-binding --clusterrole=cluster-admin --user=admin
 
 # Prepare the kubectl config file for download to client (DNS)
-export KUBECONFIG_OUTPUT=/home/ubuntu/kubeconfig
-kubeadm alpha phase kubeconfig user \
- --client-name admin \
- --apiserver-advertise-address $DNS_NAME \
- > $KUBECONFIG_OUTPUT
-chown ubuntu:ubuntu $KUBECONFIG_OUTPUT
-chmod 0600 $KUBECONFIG_OUTPUT
+#
+# NOTE: Broken as of right now. Passing a DNS name as the --apiserver-advertise-address
+# causes the nodes private IP to be used.
+
+#export KUBECONFIG_OUTPUT=/home/ubuntu/kubeconfig
+#kubeadm alpha phase kubeconfig user \
+# --client-name admin \
+# --apiserver-advertise-address $DNS_NAME \
+# > $KUBECONFIG_OUTPUT
+#chown ubuntu:ubuntu $KUBECONFIG_OUTPUT
+#chmod 0600 $KUBECONFIG_OUTPUT
 
 # Prepare the kubectl config file for download to client (IP address)
 export KUBECONFIG_OUTPUT=/home/ubuntu/kubeconfig_ip
