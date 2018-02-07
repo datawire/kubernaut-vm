@@ -17,13 +17,14 @@ apt-get \
     -o Dpkg::Options::="--force-confold" \
     dist-upgrade
 
-# --- Docker Installation ---
-
 apt-get -y install \
     apt-transport-https \
+    awscli \
     ca-certificates \
     curl \
     software-properties-common
+
+# --- Docker Installation
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
