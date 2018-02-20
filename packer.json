@@ -3,7 +3,8 @@
     "build_number": null,
     "builder": null,
     "commit": null,
-    "force_deregister": "false"
+    "force_deregister": "false",
+    "kubernaut_agent_version": null
   },
 
   "builders": [
@@ -47,7 +48,13 @@
     {
       "only": ["kubernaut_k8s-v192"],
       "type": "shell",
-      "script": "kubernaut_k8s-v192.sh",
+      "scripts": [
+        "kubernaut_k8s-v192.sh",
+        "install_kubernaut-agent.sh"
+      ],
+      "environment_vars": [
+        "KUBERNAUT_AGENT_VERSION={{ user `kubernaut_agent_version` }}"
+      ],
       "execute_command": "{{ .Vars }} sudo -E -S bash '{{ .Path }}'"
     }
   ]

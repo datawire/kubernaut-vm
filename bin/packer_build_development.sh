@@ -6,6 +6,8 @@ set -o nounset
 
 export PATH=bin/:$PATH
 
+source vars.sh
+
 variables_file="packer_variables.json"
 template_file="packer.json"
 
@@ -14,7 +16,8 @@ cat << EOF > packer_variables.json
   "build_number": "0",
   "builder": "${USER}",
   "commit": "local",
-  "force_deregister": "true"
+  "force_deregister": "true",
+  "kubernaut_agent_version": "${KUBERNAUT_AGENT_VERSION}"
 }
 EOF
 

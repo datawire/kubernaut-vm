@@ -6,6 +6,7 @@ set -o pipefail
 
 export KUBEADM_TOKEN="${kubeadm_token}"
 export DNS_NAME="${dns_name}"
+export INSTANCE_ID="$(curl -s http://169.254.169.254/latest/meta-data/instance-id)"
 export IP_ADDRESS="$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)"
 export CLUSTER_NAME="${cluster_name}"
 export KUBERNETES_VERSION="$(cat /etc/kubernaut/kubernetes_version | tr -d '\n')"
@@ -14,7 +15,7 @@ set -o nounset
 
 aws ec2 create-tags \
    --region us-east-1 \
-   --resources $(curl -s http://169.254.169.254/latest/meta-data/instance-id) \
+   --resources $INSTANCE_ID \
    --tags Key=kubernetes.io/cluster/$CLUSTER_NAME,Value=owned
 
 # We needed to match the hostname expected by kubeadm to the hostname used by kubelet
@@ -86,3 +87,65 @@ kubeadm alpha phase kubeconfig user \
  > $KUBECONFIG_OUTPUT
 chown ubuntu:ubuntu $KUBECONFIG_OUTPUT
 chmod 0600 $KUBECONFIG_OUTPUT
+
+# Configure the kubernaut agent service
+
+cat >/etc/systemd/system/kubernaut-agent.service <<EOF
+[Unit]
+Description=Kubernaut Agent
+Documentation=https://github.com/datawire/kubernaut-agent
+After=network.target
+AssertFileIsExecutable=/usr/local/bin/kubernaut-agent
+AssertFileIsReadable=/home/ubuntu/kubeconfig_ip
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/kubernaut-agent /home/ubuntu/kubeconfig_ip $INSTANCE_ID
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Start the kubernaut agent
+systemctl start kubernaut-agent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

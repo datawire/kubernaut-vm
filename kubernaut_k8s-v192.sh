@@ -25,6 +25,8 @@ apt-get -y install \
     curl \
     software-properties-common
 
+rm -rf /var/lib/apt/lists/*
+
 # --- Docker Installation
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -36,6 +38,8 @@ add-apt-repository \
 
 apt-get update
 apt-get -y install docker-ce
+
+rm -rf /var/lib/apt/lists/*
 
 systemctl stop docker
 systemctl enable docker
@@ -52,6 +56,8 @@ apt-get -y install \
 	kubelet=${KUBERNETES_VERSION_DEB} \
 	kubeadm=${KUBERNETES_VERSION_DEB} \
 	kubectl=${KUBERNETES_VERSION_DEB}
+
+rm -rf /var/lib/apt/lists/*
 
 systemctl stop kubelet
 systemctl disable kubelet
