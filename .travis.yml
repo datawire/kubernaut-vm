@@ -1,22 +1,20 @@
----
 sudo: false
 dist: trusty
 language: generic
 
 env:
   global:
-    - PATH="./bin:${PATH}"
-    - COMMIT_HASH=${TRAVIS_COMMIT::8}
-
-    - AWS_ACCESS_KEY_ID=AKIAJBCYCKRY5O4H5LRA
-    - secure: "G7R7qTLBlYD8ESs4rPgXWo5aE66/QbB8afE6ii0pLw/341iHjv7u6HKvHt9Piw7BGTQ8DAZqalIhZ27TQ3cososD927xY6eZ9ND/TIFPuyyQx5VAYDIxyAE3lqF21ufTl8vVhrAOcvPPxZ+lya6Gb6b5iD39aG5nv2jXm8Kr0vwDiUNaFYBuMRTyfp2jqfCSI6bXePo6RbDyXK3C7zS7A4lS6KjUrST9gVpHTfVdktAVHmezCelSKCgKLmvj9TNyFENOXSOlN+beVYAyAjI4AhKeZTT0hu0FG7sp/ZXh2u41i3IroBvVMKUeJhb+3TSCTr3/PCGftwyZipyAbYi6TcuOpppuxYX2g6SD22iWUwXv0zQab6PHZ0nB87cOoQ3Y+0IEiNpu+tHIeqODGvjk+UcHqQbUsv55lt0yCMQqNTfSD/CSToQNnv3GYk1jxxFZRppoLvYZTg4KJ6X+8p6AfWE5nlHzvgMm/2cl1kQWh3Gh1IFLsE/nbzkCiPW745JoV8ReHTMlwUUlfdmQXBd8mqfsy/m2vWQ01SfuRbmI3LcK/OYpozVKo38McN9lz4+Bk8UxBCd6yeoId6TkAienTdnpPPa4aJt5BO20nx1s1LntM6ySmqR4fxLYvAQnYPwsPJQ4/77pwF3yEN8cBIJMacRroSyzmIjoO1Uh+OvxpBU="
+  - PATH="./bin:${PATH}"
+  - COMMIT_HASH=${TRAVIS_COMMIT::8}
+  - AWS_ACCESS_KEY_ID=AKIAJBCYCKRY5O4H5LRA
+  - secure: W4AOm55z44qxfRfGV3x1sj/Xp5wNaPih0vkA7p1gtdVBe6xdCd2pzLJpB0G8N7KlxxISo53BOTeugij9tp83u7/Ab4debM6m5gduVcbicVAqrOarBw2a3hZEz3E734KqhGkDFMQesc8iSes/SdmPgD3n5mFMK8QIiHSoUdPWnGLBp9csJJMGe0bwWlJk4OBekm6DwtH6IDhl021yEt7Fdx7P+EBzU29EP1jaKbzQfyAqHiIalJ6czDa0mRn//TGiieNd7q09S7gnXkkrjtQuRL2bGYPPYIRP4u7Cl8OKBfxa4/AnTx3cO3lajIpg3o1eRLXwkGm1stFqSLgkC6Oa1V9WKoMbxBauq5RsfwYjPIL/XazFmHKLTs2Gy75OkeMnCbF/nkarNxD63towsY9/L3VVl9y1D0OYNTJZ7yqy+0HOl/wF+YeuZxSsyj7jHg9sog3KWjJVn9Xm/UAMfaj6aqNqpODoIteA83HQCscImZTE/G5p12HgvUezoQLccK1K7xeiYZCY1y8SKcilffS5QJRdr3eJqXFoz76reUwugC5pPCC1W9t29QXyWmrIxaCQPBmn/NlKAQZh2Dh9nChej7fDKf9ZOOtefvXiQfOA5SvQx3eyDhUro6iyxW+jXPia9HxdBBq099c1llU6a63U8gnrKVYhrQJn3tObOFlHd3M=
 
 before_install: []
 
 install:
-  - set -e
-  - bin/install_packer.sh
+- set -e
+- bin/install_packer.sh
 
 script:
-  - set -e
-  - bin/packer_build_release.sh
+- set -e
+- bin/packer_build_release.sh
