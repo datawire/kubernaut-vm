@@ -41,6 +41,74 @@
         "Commit": "{{ user `commit` }}",
         "kubernaut.io/kubernetes-version": "1.9.2"
       }
+    },
+    {
+      "name": "kubernaut_k8s-v197",
+      "type": "amazon-ebs",
+      "ami_description": "kubernaut (build: {{ user `build_number` }})",
+      "ami_name": "kubernaut_k8s-v197_b{{ user `build_number` }}",
+      "instance_type": "m4.large",
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 10,
+          "volume_type": "gp2",
+          "delete_on_termination": true
+        }
+      ],
+      "force_deregister": "{{ user `force_deregister` }}",
+      "region": "us-east-1",
+      "run_tags": {
+        "Build": "{{ user `build_number` }}",
+        "Builder": "{{ user `builder` }}",
+        "Commit": "{{ user `commit` }}",
+        "Name": "kubernaut-packer-b{{ user `build_number` }}",
+        "Role": "packer"
+      },
+      "source_ami": "ami-7ad76705",
+      "sriov_support": true,
+      "spot_price_auto_product": "Linux/UNIX (Amazon VPC)",
+      "ssh_username": "ubuntu",
+      "tags": {
+        "Build": "{{ user `build_number` }}",
+        "Builder": "{{ user `builder` }}",
+        "Commit": "{{ user `commit` }}",
+        "kubernaut.io/kubernetes-version": "1.9.2"
+      }
+    },
+    {
+      "name": "kubernaut_k8s-v1102",
+      "type": "amazon-ebs",
+      "ami_description": "kubernaut (build: {{ user `build_number` }})",
+      "ami_name": "kubernaut_k8s-v1102_b{{ user `build_number` }}",
+      "instance_type": "m4.large",
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 10,
+          "volume_type": "gp2",
+          "delete_on_termination": true
+        }
+      ],
+      "force_deregister": "{{ user `force_deregister` }}",
+      "region": "us-east-1",
+      "run_tags": {
+        "Build": "{{ user `build_number` }}",
+        "Builder": "{{ user `builder` }}",
+        "Commit": "{{ user `commit` }}",
+        "Name": "kubernaut-packer-b{{ user `build_number` }}",
+        "Role": "packer"
+      },
+      "source_ami": "ami-7ad76705",
+      "sriov_support": true,
+      "spot_price_auto_product": "Linux/UNIX (Amazon VPC)",
+      "ssh_username": "ubuntu",
+      "tags": {
+        "Build": "{{ user `build_number` }}",
+        "Builder": "{{ user `builder` }}",
+        "Commit": "{{ user `commit` }}",
+        "kubernaut.io/kubernetes-version": "1.9.2"
+      }
     }
   ],
 
@@ -50,6 +118,30 @@
       "type": "shell",
       "scripts": [
         "kubernaut_k8s-v192.sh",
+        "install_kubernaut-agent.sh"
+      ],
+      "environment_vars": [
+        "KUBERNAUT_AGENT_VERSION={{ user `kubernaut_agent_version` }}"
+      ],
+      "execute_command": "{{ .Vars }} sudo -E -S bash '{{ .Path }}'"
+    },
+    {
+      "only": ["kubernaut_k8s-v197"],
+      "type": "shell",
+      "scripts": [
+        "kubernaut_k8s-v197.sh",
+        "install_kubernaut-agent.sh"
+      ],
+      "environment_vars": [
+        "KUBERNAUT_AGENT_VERSION={{ user `kubernaut_agent_version` }}"
+      ],
+      "execute_command": "{{ .Vars }} sudo -E -S bash '{{ .Path }}'"
+    },
+    {
+      "only": ["kubernaut_k8s-v1102"],
+      "type": "shell",
+      "scripts": [
+        "kubernaut_k8s-v1102.sh",
         "install_kubernaut-agent.sh"
       ],
       "environment_vars": [
