@@ -14,8 +14,8 @@ before_install: []
 
 install:
   - set -e
-  - bin/install_packer.bash
+  - bin/install_packer.sh
 
 script:
   - set -e
-  - bin/packer_build_release.bash
+  - bin/packer_build_release.sh
